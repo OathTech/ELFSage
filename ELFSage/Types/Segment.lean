@@ -40,9 +40,9 @@ def ProgramHeaderTableEntry.toSegment?
     segment_offset := p_offset phte
     segment_body   := bytes.extract (p_offset phte) (p_offset phte + p_filesz phte)
     segment_flags  := ⟨
-      (p_flags phte / 4) % 2  == 0,  -- Readable Segment
-      (p_flags phte / 2) % 2  == 0,  -- Writable Segment
-      (p_flags phte / 1) % 2  == 0,  -- Executable Segment
+      (p_flags phte / 4) % 2  == 1,  -- Readable Segment (PF_R = 0x4)
+      (p_flags phte / 2) % 2  == 1,  -- Writable Segment (PF_W = 0x2)
+      (p_flags phte / 1) % 2  == 1,  -- Executable Segment (PF_X = 0x1)
     ⟩
   }
 

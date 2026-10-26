@@ -1,4 +1,5 @@
 import «ELFSage».Test.TestRunner
+import «ELFSage».Test.SegmentFlags
 
 def main (_: List String): IO UInt32 :=
   let testDirRelative: System.FilePath := System.mkFilePath [ "ELFSage", "Test" ]
