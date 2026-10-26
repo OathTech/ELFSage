@@ -7,6 +7,8 @@ These theorems are proved by bit-blasting (`bv_decide`), so each depends on a pe
 native-checked certificate axiom (`*._native.bv_decide.ax_*`) in addition to Lean's standard
 axioms. They are kept apart from `ELFSage.Util.ByteArray` so that the parsers and their
 bounds proofs depend only on the standard axioms; nothing in the library imports this module.
+It is a second root of the `ELFSage` library (see the lakefile), so it is built and checked
+without being imported by `ELFSage`.
 -/
 
 @[simp]
