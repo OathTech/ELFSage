@@ -364,10 +364,6 @@ theorem Nat.and_xor_dist : 2^k * (x ^^^ y) = 2^k * x ^^^ 2^k * y := by
 theorem Nat.shiftLeft_distribute : ∀n : Nat, (x ||| y) <<< n = (x <<< n) ||| (y <<< n) := by
   intro n; simp [Nat.shiftLeft_toExp, Nat.or_mul_dist]
 
-@[simp]
-theorem UInt16.byteCeiling :  ∀(i  : UInt16), (i >>> 0x8) % (256 : UInt16) = i >>> 0x8 := by
-  bv_decide
-
 theorem Nat.splitBytes : ∀n: Nat, n = n >>> 0x8 <<< 0x8 ||| n % 256 := by
   intro n
   suffices 256 * (n / 256) ||| n % 256 = 256 * (n / 256) + n % 256 by
@@ -376,36 +372,3 @@ theorem Nat.splitBytes : ∀n: Nat, n = n >>> 0x8 <<< 0x8 ||| n % 256 := by
   apply Nat.bitwise_sum (n:=8)
   · rw [Nat.mul_comm]; apply Nat.mul_mod_left
   · apply Nat.mod_lt; trivial
-
-theorem UInt16.shiftUnshift : ∀(i  : UInt16), i = (i >>> 0x8 % 256) <<< 0x8 ||| i % 256 := by
-  bv_decide
-
-theorem UInt32.shiftUnshift : ∀(i  : UInt32),
-  i = (i >>> 0x18 % 256) <<< 0x18 |||
-      (i >>> 0x10 % 256) <<< 0x10 |||
-      (i >>> 0x08 % 256) <<< 0x08 |||
-      i % 256 := by
-  bv_decide
-
-theorem UInt64.shiftUnshift : ∀(i  : UInt64),
-  i = (i >>> 0x38 % 256) <<< 0x38 |||
-      (i >>> 0x30 % 256) <<< 0x30 |||
-      (i >>> 0x28 % 256) <<< 0x28 |||
-      (i >>> 0x20 % 256) <<< 0x20 |||
-      (i >>> 0x18 % 256) <<< 0x18 |||
-      (i >>> 0x10 % 256) <<< 0x10 |||
-      (i >>> 0x08 % 256) <<< 0x08 |||
-      i % 256 := by
-  bv_decide
-
-theorem UInt16.ByteArray_roundtrip :
-  ∀ i : UInt16, ∀l, i.getBytesBEfrom.getUInt16BEfrom 0 l = i := by
-  intro i l
-
-  simp [
-    UInt16.getBytesBEfrom,
-    ByteArray.getUInt16BEfrom,
-  ]
-
-  apply Eq.symm
-  apply UInt16.shiftUnshift i

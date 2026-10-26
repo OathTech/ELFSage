@@ -4,3 +4,4 @@ import ELFSage.Commands.Read
 import ELFSage.Commands.HexDump
 import ELFSage.Commands.Validate
 import ELFSage.Commands.Patch
+import ELFSage.Util.Roundtrip
