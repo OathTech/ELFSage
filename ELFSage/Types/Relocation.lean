@@ -1,5 +1,15 @@
 import ELFSage.Types.Sizes
 import ELFSage.Util.ByteArray
+import ELFSage.Constants.Relocation
+
+/-- The symbol table index packed in a 64-bit `r_info` (`ELF64_R_SYM`). -/
+def ELF64_R_SYM (info : Nat) : Nat := info / 2^32
+/-- The relocation type packed in a 64-bit `r_info` (`ELF64_R_TYPE`). -/
+def ELF64_R_TYPE (info : Nat) : Nat := info % 2^32
+/-- The symbol table index packed in a 32-bit `r_info` (`ELF32_R_SYM`). -/
+def ELF32_R_SYM (info : Nat) : Nat := info / 2^8
+/-- The relocation type packed in a 32-bit `r_info` (`ELF32_R_TYPE`). -/
+def ELF32_R_TYPE (info : Nat) : Nat := info % 2^8
 
 class Relocation (α : Type) where
   /-- Address at which to relocate -/
